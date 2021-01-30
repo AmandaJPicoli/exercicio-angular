@@ -1,0 +1,45 @@
+<main>
+   <div class="container text-center p-5">
+
+      <div class="spinner-border" role="status" *ngIf="estaCarregando">
+         <span class="sr-only">Loading...</span>
+      </div>
+
+      <div *ngIf="erroNoCarregamento">
+         <h2>Deu erro :(</h2>
+         <button (click)="carregarClientes()"> Tentar novamente </button>
+      </div>
+
+      <button class='btn btn-cadastro m-1' (click)='gotoCadastroClientes()'>Novo Cliente</button>
+
+      <div *ngIf="!estaCarregando && !erroNoCarregamento">
+
+         <!-- TABELA DE CLIENTES -->
+         <h4>Clientes</h4>
+         <br>
+         <table class="table table-hover">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">CPF</th>
+                  <th scope="col"></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let usuario of clientes ">
+                  <th scope="row">{{usuario.id}}</th>
+                  <td>{{usuario.nome}}</td>
+                  <td>{{usuario.cpf}}</td>
+                  <td>
+                     <button class="btn btn-primary" (click)="gotoDetalhesCliente(usuario.id)">Detalhes</button>
+                     <button class="btn btn-danger m-1" (click)="deletarCliente(usuario.id)">Excluir</button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+
+      </div>
+
+   </div>
+</main>

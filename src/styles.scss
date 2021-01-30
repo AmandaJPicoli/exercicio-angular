@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import '~ngx-toastr/toastr';
+
+body {
+	margin: 0;
+}
+.btn-cadastro {
+	width: 30%;
+	margin: 0 auto;
+	padding: 10px;
+	background-color: #140083;
+	font-weight: bold;
+	color: white;
+	&:hover {
+		background-color: #77B6D8;
+	}
+}
