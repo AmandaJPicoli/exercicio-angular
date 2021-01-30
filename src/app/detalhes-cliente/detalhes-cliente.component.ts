@@ -19,6 +19,7 @@ export class DetalhesClienteComponent implements OnInit {
   cliente: Usuario;
   estaCarregando: boolean;
   erroNoCarregamento: boolean;
+  clienteId: string;
 
   constructor(
     private apiService: ApiService,
@@ -29,14 +30,39 @@ export class DetalhesClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarContato();
+    this.carregarContas();
+  }
+
+  carregarContas() {
+    this.estaCarregando = true;
+    this.erroNoCarregamento = false;
+    
+    this.apiService.getContaByIdCLiente(this.clienteId)
+      .pipe(
+      take(1),
+      finalize(() => this.estaCarregando = false)
+    )
+      .subscribe(
+        response => this.onSuccessContas(response),
+        error => this.onErrorContas(error),
+      );
+  }
+
+  onSuccessContas(response: Conta[]) {
+    this.contas = response;
+  }
+
+  onErrorContas(error: any) {
+    this.erroNoCarregamento = true;
+    console.error(error);
   }
 
   carregarContato() {
     this.estaCarregando = true;
     this.erroNoCarregamento = false;
 
-    const clienteId = this.route.snapshot.paramMap.get('id');
-    this.apiService.getUsuarioById(clienteId)
+    this.clienteId = this.route.snapshot.paramMap.get('id');
+    this.apiService.getUsuarioById(this.clienteId)
       .pipe(
         take(1),
         finalize(() => this.estaCarregando = false)
@@ -61,12 +87,12 @@ export class DetalhesClienteComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  gotoContas(){
-    this.router.navigate(['cadastro-conta'])
+  gotoContas(idCliente) {
+    this.router.navigate([`usuario/${idCliente}/cadastro-conta`]);
   }
 
   deletarConta(id: number) {
-    this.apiService.deleteUsuario(id.toString())
+    this.apiService.deleteConta(id.toString())
       .subscribe(
         response => this.onSuccessDeletarConta(id),
         error => this.onErrorDeletarConta(),
@@ -79,7 +105,7 @@ export class DetalhesClienteComponent implements OnInit {
   }
 
   onErrorDeletarConta() {
-    this.toastr.success('Erro!', 'Houve um erro ao tentar deletar. Tente novamente');
+    this.toastr.error('Erro!', 'Houve um erro ao tentar deletar. Tente novamente');
   }
 
 

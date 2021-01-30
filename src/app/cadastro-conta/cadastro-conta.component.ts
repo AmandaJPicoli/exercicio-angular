@@ -11,9 +11,9 @@ import { ApiService } from '../api.service';
 })
 export class CadastroContaComponent implements OnInit {
 
-
   contaForm: FormGroup;
   valor: number;
+  idCliente: string;
 
   constructor(
     private fb: FormBuilder,
@@ -24,9 +24,14 @@ export class CadastroContaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const clienteId = this.route.snapshot.paramMap.get('idCliente');
+    this.idCliente = this.route.snapshot.paramMap.get('id');
 
+    this.inicializaFormulario();
+  }
+
+  inicializaFormulario(){
     this.contaForm = this.fb.group({
+      idUsuario: [this.idCliente],
       saldo: ['', Validators.required],
     })
   }
@@ -48,15 +53,16 @@ export class CadastroContaComponent implements OnInit {
   }
 
   cadastro() {
+    console.log(this.contaForm.value);
     this.apiService.postConta(this.contaForm.value)
       .subscribe(
-        response => this.onSuccessNovaConta(this.contaForm.value.idUsuario),
+        response => this.onSuccessNovaConta(),
         error => this.onErrorNovaConta(),
       )
   }
-  onSuccessNovaConta(clienteId) {
+  onSuccessNovaConta() {
     this.toastr.success('Sucesso!', 'Conta criada com sucesso.');
-    this.router.navigate([`usuario/${clienteId}`])
+    this.router.navigate([`usuario/${this.idCliente}`])
   }
 
   onErrorNovaConta() {

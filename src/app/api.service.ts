@@ -40,7 +40,11 @@ export class ApiService {
   // CONTAS
 
   getConta() {
-    return this.http.get(this.API_URL + '/contas');
+    return this.http.get<Conta[]>(this.API_URL + '/contas');
+  }
+
+  getContaByIdCLiente(idCliente: any) {
+    return this.http.get<Conta[]>(this.API_URL + `/contas?idUsuario=${idCliente}`);
   }
 
   postConta(conta: Conta) {

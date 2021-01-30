@@ -1,48 +1,55 @@
 <div class="container text-center p-5">
 
-    <div class="spinner-border" role="status" *ngIf="estaCarregando">
+   <div class="spinner-border" role="status" *ngIf="estaCarregando">
       <span class="sr-only">Loading...</span>
-    </div>
-  
-    <div *ngIf="erroNoCarregamento">
+   </div>
+
+   <div *ngIf="erroNoCarregamento">
       <h2>Deu erro :(</h2>
       <button (click)="carregarContato()"> Tentar novamente </button>
-    </div>
-  
-    <div *ngIf="!estaCarregando && !erroNoCarregamento" class="row">
-      <div class="m-3"><p><strong>Nome:</strong> {{ cliente.nome }} </p></div>
-      <div class="m-3"><p> <strong>CPF:</strong> {{ cliente.cpf }} </p></div>
-      <div class="m-3"><p><strong>E-mail:</strong> {{ cliente.email }} </p></div>
-    </div>
-  
-    <button class="btn btn-dark m-1" (click)="voltar()">
+   </div>
+
+   <div *ngIf="!estaCarregando && !erroNoCarregamento" class="row">
+      <div class="m-3">
+         <p><strong>Nome:</strong> {{ cliente.nome }} </p>
+      </div>
+      <div class="m-3">
+         <p> <strong>CPF:</strong> {{ cliente.cpf }} </p>
+      </div>
+      <div class="m-3">
+         <p><strong>E-mail:</strong> {{ cliente.email }} </p>
+      </div>
+   </div>
+
+   <button class="btn btn-dark m-1" (click)="voltar()">
       Voltar
-    </button>
-    <button class="btn btn-primary m-1" (click)="gotoContas()">
-        Nova conta
-    </button>
+   </button>
+   <button class="btn btn-primary m-1" (click)="gotoContas(cliente.id)">
+      Nova conta
+   </button>
 
-    <!-- TABELA DE CLIENTES -->
-    <h4>Clientes</h4>
-    <br>
-    <table class="table table-hover">
-       <thead>
-          <tr>
-             <th scope="col">#</th>
-             <th scope="col">Saldo</th>
-             <th scope="col">Ações</th>
-          </tr>
-       </thead>
-       <tbody>
-          <tr *ngFor="let conta of contas ">
-             <th scope="row">{{conta.id}}</th>
-             <td>{{conta.saldo}}</td>
-             <td>
-                <button class="btn btn-danger m-1" (click)="deletarConta(conta.id)">Excluir</button>
-             </td>
-          </tr>
-       </tbody>
-    </table>
+   <!-- TABELA DE CLIENTES -->
+   <br>
+   <h4>Contas</h4>
+   <br>
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">Saldo</th>
+            <th scope="col">Ações</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let conta of contas ">
+            <th scope="row">{{conta.id}}</th>
+            <td>{{conta.saldo}}</td>
+            <td>
+               <button class="btn btn-danger m-1" (click)="deletarConta(conta.id)">Excluir</button>
+            </td>
+         </tr>
+      </tbody>
+   </table>
 
-  
-  </div>
+
+</div>

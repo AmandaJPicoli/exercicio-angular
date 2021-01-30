@@ -54,12 +54,15 @@ export class HomeComponent implements OnInit {
   }
 
   gotoDetalhesCliente(clienteId: number) {
-    console.log(clienteId);
     this.router.navigate([`usuario/${clienteId}`]);
   }
 
   gotoCadastroClientes() {
     this.router.navigate(['cadastro-usuario']);
+  }
+
+  gotoEditarCliente(clienteId: number){
+    this.router.navigate([`usuario/${clienteId}/editar`]);
   }
   
   deletarCliente(idCliente: number) {

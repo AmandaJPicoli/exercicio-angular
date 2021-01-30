@@ -32,7 +32,8 @@
                   <td>{{usuario.nome}}</td>
                   <td>{{usuario.cpf}}</td>
                   <td>
-                     <button class="btn btn-primary" (click)="gotoDetalhesCliente(usuario.id)">Detalhes</button>
+                     <button class="btn btn-primary m-1" (click)="gotoDetalhesCliente(usuario.id)">Detalhes</button>
+                     <button class="btn btn-warning m-1" (click)="gotoEditarCliente(usuario.id)">Editar</button>
                      <button class="btn btn-danger m-1" (click)="deletarCliente(usuario.id)">Excluir</button>
                   </td>
                </tr>
