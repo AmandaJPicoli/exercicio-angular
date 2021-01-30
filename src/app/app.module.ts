@@ -15,6 +15,8 @@ import { DetalhesClienteComponent } from './detalhes-cliente/detalhes-cliente.co
 import { ToastrModule } from 'ngx-toastr';
 import { CadastroContaComponent } from './cadastro-conta/cadastro-conta.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule, 
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent],
