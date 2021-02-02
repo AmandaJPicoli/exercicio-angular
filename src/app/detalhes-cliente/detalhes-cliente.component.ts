@@ -44,17 +44,12 @@ export class DetalhesClienteComponent implements OnInit {
     )
       .subscribe(
         response => this.onSuccessContas(response),
-        error => this.onErrorContas(error),
+        error => this.onError(error),
       );
   }
 
   onSuccessContas(response: Conta[]) {
     this.contas = response;
-  }
-
-  onErrorContas(error: any) {
-    this.erroNoCarregamento = true;
-    console.error(error);
   }
 
   carregarContato() {
@@ -75,7 +70,6 @@ export class DetalhesClienteComponent implements OnInit {
 
   onSuccess(response: Usuario) {
     this.cliente = response;
-    console.log(this.cliente);
   }
 
   onError(error: any) {
@@ -106,6 +100,10 @@ export class DetalhesClienteComponent implements OnInit {
 
   onErrorDeletarConta() {
     this.toastr.error('Erro!', 'Houve um erro ao tentar deletar. Tente novamente');
+  }
+
+  gotoEditarConta(clienteId ,idConta){
+    this.router.navigate([`usuario/${clienteId}/cadastro-conta/${idConta}`]);
   }
 
 

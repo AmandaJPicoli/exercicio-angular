@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize, take } from 'rxjs/operators';
@@ -16,17 +17,34 @@ export class HomeComponent implements OnInit {
   clientes: Usuario[];
   estaCarregando: boolean;
   erroNoCarregamento: boolean;
+  clienteForm: FormGroup;
 
   constructor(
     private router: Router,
     private apiService: ApiService,
     private toastr: ToastrService,
-    ) 
-    { }
+    private fb: FormBuilder
+  ) { }
 
 
   ngOnInit() {
     this.carregarClientes();
+    this.inicializaForm();
+  }
+
+  inicializaForm() {
+    this.clienteForm = this.fb.group({
+      cliente: ['', Validators.required]
+    })
+  }
+
+  get cliente() {
+    return this.clienteForm.get('cliente').value;
+  }
+
+  onSubmit(){
+    let clienteId = this.clienteForm.get('cliente').value;
+    this.router.navigate([`usuario/${clienteId}`]);
   }
 
   carregarClientes() {
@@ -61,10 +79,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['cadastro-usuario']);
   }
 
-  gotoEditarCliente(clienteId: number){
+  gotoEditarCliente(clienteId: number) {
     this.router.navigate([`usuario/${clienteId}/editar`]);
   }
-  
+
   deletarCliente(idCliente: number) {
     this.apiService.deleteUsuario(idCliente.toString())
       .subscribe(

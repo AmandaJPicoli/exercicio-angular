@@ -32,6 +32,7 @@
          <tr *ngFor="let conta of contas ">
             <td>{{conta.saldo}}</td>
             <td>
+               <button class="btn btn-warning m-1" (click)="gotoEditarConta(conta.idUsuario,conta.id)">Editar</button>
                <button class="btn btn-danger m-1" (click)="deletarConta(conta.id)">Excluir</button>
             </td>
          </tr>

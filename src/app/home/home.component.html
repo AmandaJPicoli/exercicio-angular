@@ -13,20 +13,32 @@
       <button class='btn btn-cadastro m-1' (click)='gotoCadastroClientes()'>Novo Cliente</button>
 
       <div *ngIf="!estaCarregando && !erroNoCarregamento">
-         <!-- CARD CLIENTES -->
-         <div class="card" style="width: 18rem; display: flex; float: left; margin: 20px;" *ngFor="let usuario of clientes ">
-            <div class="card-body">
-              <h5 class="card-title">{{usuario.nome}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{usuario.cpf}}</h6>
-              <p class="card-text">{{usuario.email}}</p>
-              <a  class="btn btn-primary m-1" (click)="gotoDetalhesCliente(usuario.id)">Detalhes</a>
-              <a  class="btn btn-warning m-1" (click)="gotoEditarCliente(usuario.id)">Editar</a>
-              <a  class="btn btn-danger m-1" (click)="deletarCliente(usuario.id)">Excluir</a>
+
+         <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+            <select class="custom-select" formControlName="cliente">
+               <option value="" disabled>Selecione</option>
+               <option *ngFor="let usuario of clientes" [ngValue]="usuario.id"> {{usuario.nome}}</option>
+            </select>
+            <button type="submit" class="btn btn-primary"> Entrar </button>
+         </form>
+         <div>
+
+            <!-- CARD CLIENTES -->
+            <div class="card" style="width: 18rem; display: flex; float: left; margin: 20px;"
+               *ngFor="let usuario of clientes ">
+               <div class="card-body">
+                  <h5 class="card-title">{{usuario.nome}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{usuario.cpf}}</h6>
+                  <p class="card-text">{{usuario.email}}</p>
+                  <a class="btn btn-primary m-1" (click)="gotoDetalhesCliente(usuario.id)">Detalhes</a>
+                  <a class="btn btn-warning m-1" (click)="gotoEditarCliente(usuario.id)">Editar</a>
+                  <a class="btn btn-danger m-1" (click)="deletarCliente(usuario.id)">Excluir</a>
+               </div>
             </div>
-          </div>
+         </div>
 
          <!-- TABELA DE CLIENTES -->
-<!-- 
+         <!-- 
          <h4>Clientes</h4>
          <br>
          <table class="table table-hover">
@@ -51,6 +63,6 @@
                </tr>
             </tbody>
          </table>-->
-      </div> 
+      </div>
    </div>
 </main>

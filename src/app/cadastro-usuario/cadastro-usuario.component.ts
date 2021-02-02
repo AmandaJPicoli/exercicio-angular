@@ -48,7 +48,6 @@ export class CadastroUsuarioComponent implements OnInit {
     this.estaCarregando = true;
     this.erroNoCarregamento = false;
 
-
     this.apiService.getUsuarioById(this.clienteId)
       .pipe(
         take(1),
@@ -81,7 +80,6 @@ export class CadastroUsuarioComponent implements OnInit {
       }
     });
   }
-  
 
   onSubmit() {
     if (this.clienteForm.invalid) {
@@ -129,7 +127,6 @@ export class CadastroUsuarioComponent implements OnInit {
     if (!this.clienteForm.get(nomeControle)) {
       return false;
     }
-
     return this.clienteForm.get(nomeControle).invalid && this.clienteForm.get(nomeControle).touched;
   }
 
